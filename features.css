@@ -1,0 +1,6 @@
+/* Kucher feature layer: visual details that depend on interactive components. */
+.product-image{position:relative}
+.cart-flyer{position:fixed;z-index:100;left:0;top:0;width:70px;height:70px;padding:7px;border-radius:14px;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.14);pointer-events:none;transform:translate(0,0) scale(1);opacity:1;transition:transform .62s cubic-bezier(.22,.8,.26,1),opacity .62s ease}
+.cart-flyer img{width:100%;height:100%;object-fit:contain;border-radius:10px}
+.card-action:disabled,#add-product:disabled{cursor:wait;opacity:.8}
+.map-api-placeholder{font-size:13px}
