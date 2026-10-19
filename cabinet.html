@@ -1,3 +1,104 @@
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Личный кабинет Кучер строй"><title>Личный кабинет - Кучер строй</title><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="features.css"></head>
-<body data-page="cabinet"><header class="site-header"></header><main class="section"><div class="wrap"><div class="section-heading"><div><span class="eyebrow eyebrow-dark">Kucher</span><h1>Личный кабинет</h1><p>Корзина, данные для связи и история заказов.</p></div><button id="cabinet-logout" class="button button-secondary cabinet-logout" type="button">Выйти</button></div><div class="cabinet-grid"><section class="panel"><div class="panel-heading"><h2>Мои данные</h2></div><form id="profile-form" class="cabinet-form"><label>Имя<input id="cabinet-name" type="text" placeholder="Ваше имя"></label><label>Телефон<input id="cabinet-phone" type="tel" placeholder="+7 (___) ___-__-__"></label><label>Адрес доставки<input id="cabinet-address" type="text" placeholder="Адрес доставки"></label><button class="button button-primary" type="submit">Сохранить</button><p id="profile-saved" class="form-success" hidden>Данные сохранены.</p></form></section><section class="panel"><div class="panel-heading"><h2>Моя корзина</h2><a href="cart.html">Открыть корзину →</a></div><div id="cabinet-cart"></div><button id="self-checkout" class="button button-primary cabinet-checkout" type="button">Оформить заказ</button><p id="checkout-success" class="form-success" hidden>Заказ создан и добавлен в историю.</p></section></div><section class="section section-inner"><div class="panel"><div class="panel-heading"><h2>История заказов</h2></div><div id="order-history"></div></div></section><section class="section section-inner"><div class="panel"><div class="panel-heading"><h2>Мои заявки менеджеру</h2></div><div id="request-history"></div></div></section></div></main><footer class="site-footer"></footer><script src="products.js"></script><script src="app.js"></script></body></html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Личный кабинет Кучер строй: профиль, заказы, корзина и заявки менеджеру">
+  <title>Личный кабинет — Кучер строй</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="features.css">
+</head>
+<body data-page="cabinet">
+  <header class="site-header"></header>
+  <main class="section cabinet-page">
+    <div class="wrap">
+      <div class="section-heading cabinet-page-heading">
+        <div>
+          <span class="eyebrow eyebrow-dark">Личный кабинет Kucher</span>
+          <h1>Здравствуйте, <span id="cabinet-greeting">покупатель</span></h1>
+          <p id="cabinet-identity">Управляйте заказами и данными в одном месте.</p>
+        </div>
+        <button id="cabinet-logout" class="button button-secondary cabinet-logout" type="button">Выйти из аккаунта</button>
+      </div>
+
+      <section class="cabinet-metrics" aria-label="Сводка аккаунта">
+        <article class="cabinet-metric"><span class="cabinet-metric-icon" aria-hidden="true">▤</span><div><span>Всего заказов</span><strong id="cabinet-stat-orders">0</strong></div></article>
+        <article class="cabinet-metric"><span class="cabinet-metric-icon" aria-hidden="true">₽</span><div><span>Покупок на сумму</span><strong id="cabinet-stat-spent">0 ₽</strong></div></article>
+        <article class="cabinet-metric"><span class="cabinet-metric-icon" aria-hidden="true">▣</span><div><span>Товаров в корзине</span><strong id="cabinet-stat-cart">0</strong></div></article>
+        <article class="cabinet-metric"><span class="cabinet-metric-icon" aria-hidden="true">☏</span><div><span>Заявок менеджеру</span><strong id="cabinet-stat-requests">0</strong></div></article>
+      </section>
+
+      <div class="cabinet-layout">
+        <aside class="panel cabinet-sidebar" aria-label="Разделы личного кабинета">
+          <div class="cabinet-sidebar-title">Мой аккаунт</div>
+          <nav class="cabinet-tabs" aria-label="Навигация по кабинету">
+            <button class="cabinet-tab active" type="button" data-cabinet-tab="overview"><span aria-hidden="true">⌂</span> Обзор</button>
+            <button class="cabinet-tab" type="button" data-cabinet-tab="orders"><span aria-hidden="true">▤</span> Мои заказы <span class="cabinet-tab-count" id="cabinet-orders-count">0</span></button>
+            <button class="cabinet-tab" type="button" data-cabinet-tab="cart"><span aria-hidden="true">▣</span> Корзина <span class="cabinet-tab-count" id="cabinet-cart-count">0</span></button>
+            <button class="cabinet-tab" type="button" data-cabinet-tab="profile"><span aria-hidden="true">♙</span> Мои данные</button>
+            <button class="cabinet-tab" type="button" data-cabinet-tab="requests"><span aria-hidden="true">☏</span> Заявки менеджеру <span class="cabinet-tab-count" id="cabinet-requests-count">0</span></button>
+            <button class="cabinet-tab" type="button" data-cabinet-tab="security"><span aria-hidden="true">⌑</span> Безопасность</button>
+          </nav>
+          <div class="cabinet-sidebar-help"><strong>Нужна помощь?</strong><p>Оставьте заявку на консультацию — менеджер поможет с заказом.</p><button class="cabinet-inline-link" type="button" data-cabinet-tab="requests">Мои заявки →</button></div>
+        </aside>
+
+        <div class="cabinet-content">
+          <section class="panel cabinet-view" data-cabinet-view="overview" aria-labelledby="cabinet-overview-title">
+            <div class="panel-heading"><div><span class="cabinet-kicker">ВАШ ПРОФИЛЬ</span><h2 id="cabinet-overview-title">Обзор аккаунта</h2></div><button class="cabinet-text-button" type="button" data-cabinet-tab="profile">Редактировать данные →</button></div>
+            <div class="cabinet-welcome">
+              <div class="cabinet-welcome-copy"><span class="cabinet-welcome-label">КУЧЕР СТРОЙ</span><h3>Всё для ваших покупок — под рукой</h3><p>Отслеживайте заказы, сохраняйте адрес доставки и повторяйте покупки в пару кликов.</p><div class="cabinet-welcome-actions"><button class="button button-primary" type="button" data-cabinet-tab="orders">Посмотреть заказы</button><a class="button button-secondary" href="catalog.html">Перейти в каталог</a></div></div>
+              <div class="cabinet-welcome-mark" aria-hidden="true"><span>K</span><i></i><i></i><i></i></div>
+            </div>
+            <div class="cabinet-overview-grid">
+              <article class="cabinet-mini-card"><div class="cabinet-mini-card-heading"><h3>Последний заказ</h3><button class="cabinet-text-button" type="button" data-cabinet-tab="orders">Все заказы →</button></div><div id="cabinet-recent-orders"></div></article>
+              <article class="cabinet-mini-card"><div class="cabinet-mini-card-heading"><h3>Данные для оформления</h3><button class="cabinet-text-button" type="button" data-cabinet-tab="profile">Изменить</button></div><div id="cabinet-profile-summary" class="cabinet-profile-summary"></div></article>
+            </div>
+            <div class="cabinet-shortcuts"><button type="button" data-cabinet-tab="cart"><span aria-hidden="true">▣</span><span><b>Корзина</b><small>Проверить товары и оформить покупку</small></span><strong>→</strong></button><button type="button" data-cabinet-tab="requests"><span aria-hidden="true">☏</span><span><b>Заявки менеджеру</b><small>Ваши обращения по покупкам</small></span><strong>→</strong></button></div>
+          </section>
+
+          <section class="panel cabinet-view" data-cabinet-view="orders" hidden aria-labelledby="cabinet-orders-title">
+            <div class="panel-heading cabinet-section-title"><div><span class="cabinet-kicker">ПОКУПКИ</span><h2 id="cabinet-orders-title">История заказов</h2><p>Ваши оформленные заказы и их состав.</p></div><a class="button button-secondary" href="catalog.html">+ Новый заказ</a></div>
+            <div class="cabinet-list-controls"><label class="cabinet-search-label">Поиск по заказам<input id="order-search" type="search" placeholder="Номер заказа или товар"></label><label>Статус<select id="order-filter"><option value="all">Все заказы</option><option value="PENDING">Ожидает подтверждения</option><option value="CONFIRMED">Подтверждён</option><option value="PROCESSING">Собирается</option><option value="SHIPPED">Передан в доставку</option><option value="DELIVERED">Доставлен</option><option value="CANCELLED">Отменён</option></select></label></div>
+            <p id="checkout-success" class="form-success cabinet-feedback" role="status" hidden>Заказ создан и добавлен в историю.</p><p id="checkout-error" class="auth-error cabinet-feedback" role="alert" hidden></p>
+            <div id="order-history" class="cabinet-order-list"></div>
+          </section>
+
+          <section class="panel cabinet-view" data-cabinet-view="cart" hidden aria-labelledby="cabinet-cart-title">
+            <div class="panel-heading cabinet-section-title"><div><span class="cabinet-kicker">ПЕРЕД ПОКУПКОЙ</span><h2 id="cabinet-cart-title">Моя корзина</h2><p>Проверьте количество и итоговую сумму перед оформлением.</p></div><a class="cabinet-text-button" href="cart.html">Полная корзина →</a></div>
+            <div id="cabinet-cart"></div>
+            <div class="cabinet-cart-actions"><button id="cabinet-clear-cart" class="button button-secondary" type="button">Очистить корзину</button><button id="self-checkout" class="button button-primary cabinet-checkout" type="button">Оформить заказ</button></div>
+          </section>
+
+          <section class="panel cabinet-view" data-cabinet-view="profile" hidden aria-labelledby="cabinet-profile-title">
+            <div class="panel-heading cabinet-section-title"><div><span class="cabinet-kicker">КОНТАКТЫ И ДОСТАВКА</span><h2 id="cabinet-profile-title">Мои данные</h2><p>Используем эти сведения при оформлении новых заказов.</p></div></div>
+            <form id="profile-form" class="cabinet-form cabinet-profile-form">
+              <div class="cabinet-form-grid"><label>Имя и фамилия<input id="cabinet-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться" maxlength="100"></label><label>Email<input id="cabinet-email" name="email" type="email" autocomplete="email" placeholder="name@example.ru" maxlength="160"></label><label>Телефон<input id="cabinet-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" maxlength="30"></label><label>Организация <span class="cabinet-optional">необязательно</span><input id="cabinet-company" name="company" type="text" autocomplete="organization" placeholder="Название компании" maxlength="160"></label><label class="cabinet-field-wide">Адрес доставки<input id="cabinet-address" name="address" type="text" autocomplete="street-address" placeholder="Город, улица, дом, квартира / объект" maxlength="300"></label><label class="cabinet-field-wide">Комментарий к доставке <span class="cabinet-optional">необязательно</span><textarea id="cabinet-comment" name="comment" rows="3" placeholder="Подъезд, ориентир или пожелания по доставке" maxlength="500"></textarea></label></div>
+              <div class="cabinet-form-footer"><p id="profile-saved" class="form-success" role="status" hidden>Данные сохранены.</p><p id="profile-error" class="auth-error" role="alert" hidden></p><button class="button button-primary" type="submit">Сохранить изменения</button></div>
+            </form>
+          </section>
+
+          <section class="panel cabinet-view" data-cabinet-view="requests" hidden aria-labelledby="cabinet-requests-title">
+            <div class="panel-heading cabinet-section-title"><div><span class="cabinet-kicker">ОБРАТНАЯ СВЯЗЬ</span><h2 id="cabinet-requests-title">Мои заявки менеджеру</h2><p>История заявок, созданных из вашего аккаунта.</p></div><a class="button button-secondary" href="catalog.html">Выбрать товары</a></div>
+            <div id="request-history" class="cabinet-request-list"></div>
+          </section>
+
+          <section class="panel cabinet-view" data-cabinet-view="security" hidden aria-labelledby="cabinet-security-title">
+            <div class="panel-heading cabinet-section-title"><div><span class="cabinet-kicker">ДОСТУП К АККАУНТУ</span><h2 id="cabinet-security-title">Безопасность</h2><p>Настройте пароль для входа в аккаунт.</p></div></div>
+            <form id="password-form" class="cabinet-form cabinet-password-form">
+              <label>Текущий пароль<input id="cabinet-current-password" name="currentPassword" type="password" autocomplete="current-password" required></label>
+              <label>Новый пароль<input id="cabinet-new-password" name="newPassword" type="password" autocomplete="new-password" minlength="8" required><small>Не менее 8 символов без пробелов.</small></label>
+              <label>Повторите новый пароль<input id="cabinet-confirm-password" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required></label>
+              <p id="password-error" class="auth-error" role="alert" hidden></p><p id="password-saved" class="form-success" role="status" hidden>Пароль изменён.</p>
+              <button class="button button-primary" type="submit">Изменить пароль</button>
+            </form>
+            <div class="cabinet-security-note"><strong>Демонстрационный режим</strong><p>Доступ admin / admin предназначен только для локального просмотра. Данные профиля и заказов хранятся в браузере, а смена пароля отключена. Не храните здесь реальные персональные данные.</p></div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="products.js"></script>
+  <script src="config.js"></script><script src="app.js"></script>
+</body>
+</html>

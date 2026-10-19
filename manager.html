@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Рабочая панель обработки заявок магазина Кучер строй.">
+  <title>Заявки менеджеру — Кучер строй</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="features.css">
+</head>
+<body data-page="manager">
+  <header class="site-header"></header>
+  <main class="section">
+    <div class="wrap manager-console-page">
+      <section class="panel manager-console-card">
+        <div class="section-heading">
+          <div><span class="eyebrow eyebrow-dark">Служебная страница</span><h1>Заявки клиентов</h1><p>Локальная демонстрационная панель. Код доступа: admin. Заявки доступны только в этом браузере.</p></div>
+        </div>
+        <form id="manager-auth-form" class="manager-key-form">
+          <label for="manager-api-key">Ключ менеджера</label>
+          <input id="manager-api-key" type="password" autocomplete="current-password" required maxlength="300" placeholder="admin">
+          <button class="button button-primary" type="submit">Войти / загрузить</button>
+        </form>
+        <button id="manager-refresh" class="button button-secondary manager-refresh" type="button" hidden>Обновить список</button>
+        <p id="manager-page-error" class="auth-error" role="alert" hidden></p>
+        <p id="manager-page-status" class="form-success" role="status" hidden></p>
+        <div id="manager-queue" class="manager-queue"><div class="cabinet-empty-state"><h3>Нет загруженных заявок</h3><p>Введите служебный ключ, чтобы посмотреть обращения клиентов.</p></div></div>
+      </section>
+    </div>
+  </main>
+  <footer class="site-footer"></footer>
+  <script src="products.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
